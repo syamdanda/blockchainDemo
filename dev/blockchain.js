@@ -29,10 +29,10 @@ SeatCodeChain.prototype.getSeat = function(hash) {
 	});
 }
 
-SeatCodeChain.prototype.getOriginBlock = function() {
+SeatCodeChain.prototype.getOriginSeat = function() {
 	return this.seatCodes[0];
 }
 
-SeatCodeChain.prototype.getLastBlock = function() {
+SeatCodeChain.prototype.getLastSeat = function() {
 	return this.seatCodes[this.SeatCodeChain.length - 1];
 }
