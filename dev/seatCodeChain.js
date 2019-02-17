@@ -1,5 +1,6 @@
 
 const _ = require('underscore');
+const sha256 = require('sha256');
 
 function SeatCodeChain() {
 	this.seatCodes = [];
@@ -50,6 +51,10 @@ SeatCodeChain.prototype.requestSeatCode = function(companyCode, empCode, seatCod
 	this.seatCodeInfo = seatCodeInfo;
 
 	return this.getLastSeat()['index'] + 1;
+}
+
+SeatCodeChain.prototype.hashData = function(seatCodeInfo, previousHash, nounce) {
+	return sha256(nounce + previousHash + JSON.stringify(seatCodeInfo));
 }
 
 module.exports = SeatCodeChain;
