@@ -4,7 +4,8 @@ const _ = require('underscore');
 function SeatCodeChain() {
 	this.seatCodes = [];
 	this.seatCodeInfo = {
-		'empId': 0,
+		'companyCode': null,
+		'empCode': null,
 		'seatCode': null,
 		'status': 'WAITING'
 	};
@@ -35,12 +36,13 @@ SeatCodeChain.prototype.getOriginSeat = function() {
 }
 
 SeatCodeChain.prototype.getLastSeat = function() {
-	return this.seatCodes[this.SeatCodeChain.length - 1];
+	return this.seatCodes[this.seatCodes.length - 1];
 }
 
-SeatCodeChain.prototype.requestSeatCode = function(empId, seatCode) {
+SeatCodeChain.prototype.requestSeatCode = function(companyCode, empCode, seatCode) {
 	const seatCodeInfo = {
-		'empId': empId,
+		'companyCode': companyCode,
+		'empCode': empCode,
 		'seatCode': seatCode,
 		'status': 'WAITING'
 	};
