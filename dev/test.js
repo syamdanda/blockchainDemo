@@ -8,4 +8,4 @@ seatCode.requestSeatCode('C1', 'EMP1', 'SEAT1');
 
 seatCode.createSeatCode('A1', 'A2', 321);
 
-console.log(seatCode.seatCodes[1]);
+console.log(seatCode.proofOfWork('A123', seatCode.seatCodes[1].seatCodeInfo));

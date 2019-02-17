@@ -57,4 +57,19 @@ SeatCodeChain.prototype.hashData = function(seatCodeInfo, previousHash, nounce) 
 	return sha256(nounce + previousHash + JSON.stringify(seatCodeInfo));
 }
 
+SeatCodeChain.prototype.proofOfWork = function(previousHash, seatCodeInfo) {
+	
+	let nounce = 0;
+	let hash = this.hashData(seatCodeInfo, previousHash, nounce);
+	while (hash.substring(0, 2) != '00') {
+		//console.log('nounce :: ' + nounce);
+		nounce ++;
+		hash = this.hashData(seatCodeInfo, previousHash, nounce);
+	}
+
+	//console.log(hash);
+
+	return nounce;
+}
+
 module.exports = SeatCodeChain;
