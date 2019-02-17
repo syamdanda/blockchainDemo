@@ -13,9 +13,9 @@ Blockchain.prototype.createBlock = function (previousHash, currentHash, nounce) 
 		previousHash: previousHash,
 		currentHash: currentHash
 	}
-
 	this.blockChain.push(block);
 	this.data = [];
-
 	return block;
 }
+
+
