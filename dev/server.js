@@ -16,12 +16,31 @@ app.get('/', function(req, res) {
 });
 
 app.get('/seatCodeChain', function(req, res) {
-	res.send(seatCodeChain);
+	res.json(seatCodeChain);
 });
 
 app.post('/requestSeatCode', function(req, res) {
 	const seatCodeIndex = seatCodeChain.requestSeatCode(req.body.companyCode, req.body.empCode, req.body.seatCode);
-	res.send({'result' : 'seatCode request successfully raised and the seatCodeIndex is : $(seatCodeIndex}'});
+	res.json({'result' : 'seatCode request successfully raised and the seatCodeIndex is : $(seatCodeIndex}'});
+});
+
+app.get('/mining', function(req, res) {
+	const lastSeatCodeBlock = seatCodeChain.getLastSeat();
+	const previousHash = lastSeatCodeBlock.previousHash;
+
+	const currentSeatCodeBlockData = {
+		index: lastSeatCodeBlock.index + 1,
+		seatCodes:  seatCodeChain.pendingSeatCodes
+	};
+
+	const nonce = seatCodeChain.proofOfWork(previousHash, currentSeatCodeBlockData);
+	const currentBlockHash = seatCodeChain.hashData(currentSeatCodeBlockData, previousHash, nonce);
+	const newSeatCodeBlock = seatCodeChain.createSeatCode(previousHash, currentBlockHash, nonce);
+
+	res.json({
+		status: 'SUCCESS',
+		result: 'New seatCode block mined successfully at'
+	});
 });
 
 

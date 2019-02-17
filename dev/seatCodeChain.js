@@ -10,12 +10,12 @@ function SeatCodeChain() {
 	this.createSeatCode('0', '00', 0);
 }
 
-SeatCodeChain.prototype.createSeatCode = function (previousHash, currentHash, nounce) {
+SeatCodeChain.prototype.createSeatCode = function (previousHash, currentHash, nonce) {
 	const seatCodeObj = {
 		'index': this.seatCodes.length + 1,
 		'timestamp': new Date().getTime(),
 		'seatCodeInfo': this.seatCodeInfo,
-		'nounce': nounce,
+		'nonce': nonce,
 		'previousHash': previousHash,
 		'hash': currentHash
 	}
@@ -51,23 +51,23 @@ SeatCodeChain.prototype.requestSeatCode = function(companyCode, empCode, seatCod
 	return this.getLastSeat()['index'] + 1;
 }
 
-SeatCodeChain.prototype.hashData = function(seatCodeInfo, previousHash, nounce) {
-	return sha256(nounce + previousHash + JSON.stringify(seatCodeInfo));
+SeatCodeChain.prototype.hashData = function(currentSeatCodeBlockData, previousHash, nonce) {
+	return sha256(nonce + previousHash + JSON.stringify(currentSeatCodeBlockData));
 }
 
-SeatCodeChain.prototype.proofOfWork = function(previousHash, seatCodeInfo) {
+SeatCodeChain.prototype.proofOfWork = function(previousHash, currentSeatCodeBlockData) {
 	
-	let nounce = 0;
-	let hash = this.hashData(seatCodeInfo, previousHash, nounce);
+	let nonce = 0;
+	let hash = this.hashData(currentSeatCodeBlockData, previousHash, nonce);
 	while (hash.substring(0, 2) != '00') {
-		//console.log('nounce :: ' + nounce);
-		nounce ++;
-		hash = this.hashData(seatCodeInfo, previousHash, nounce);
+		//console.log('nonce :: ' + nonce);
+		nonce ++;
+		hash = this.hashData(currentSeatCodeBlockData, previousHash, nonce);
 	}
 
 	//console.log(hash);
 
-	return nounce;
+	return nonce;
 }
 
 module.exports = SeatCodeChain;
