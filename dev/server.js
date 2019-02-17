@@ -3,6 +3,10 @@ const app = express();
 
 const bodyParser = require('body-parser');
 
+const SeatCodeChain = require('./seatCodeChain');
+
+const seatCodeChain = new SeatCodeChain();
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
@@ -11,11 +15,9 @@ app.get('/', function(req, res) {
 	res.json('Hello World');
 });
 
-
-
-
-
-
+app.get('/seatCodeChain', function(req, res) {
+	res.send(seatCodeChain);
+});
 
 
 // set app defaults
