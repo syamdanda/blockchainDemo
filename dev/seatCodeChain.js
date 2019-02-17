@@ -4,15 +4,9 @@ const sha256 = require('sha256');
 
 function SeatCodeChain() {
 	this.seatCodes = [];
-	this.seatCodeInfo = {
-		'companyCode': null,
-		'empCode': null,
-		'seatCode': null,
-		'status': 'WAITING'
-	};
+	this.pendingSeatCodes = [];;
 
 	// Genesis Block..
-	this.seatCodeInfo['status'] = 'GENESIS';
 	this.createSeatCode('0', '00', 0);
 }
 
@@ -26,7 +20,7 @@ SeatCodeChain.prototype.createSeatCode = function (previousHash, currentHash, no
 		'hash': currentHash
 	}
 	this.seatCodes.push(seatCodeObj);
-	this.seatCodeInfo = {};
+	this.pendingSeatCodes = [];
 	return seatCodeObj;
 }
 
@@ -36,7 +30,7 @@ SeatCodeChain.prototype.getSeat = function(hash) {
 	});
 }
 
-SeatCodeChain.prototype.getOriginSeat = function() {
+SeatCodeChain.prototype.getGenesisSeat = function() {
 	return this.seatCodes[0];
 }
 
@@ -52,7 +46,7 @@ SeatCodeChain.prototype.requestSeatCode = function(companyCode, empCode, seatCod
 		'status': 'WAITING'
 	};
 
-	this.seatCodeInfo = seatCodeInfo;
+	this.pendingSeatCodes.push(seatCodeInfo);
 
 	return this.getLastSeat()['index'] + 1;
 }

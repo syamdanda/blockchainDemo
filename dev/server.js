@@ -19,6 +19,11 @@ app.get('/seatCodeChain', function(req, res) {
 	res.send(seatCodeChain);
 });
 
+app.post('/requestSeatCode', function(req, res) {
+	const seatCodeIndex = seatCodeChain.requestSeatCode(req.body.companyCode, req.body.empCode, req.body.seatCode);
+	res.send({'result' : 'seatCode request successfully raised and the seatCodeIndex is : $(seatCodeIndex}'});
+});
+
 
 // set app defaults
 var app_host = process.env.HOST || 'localhost';
