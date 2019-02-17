@@ -10,6 +10,10 @@ function SeatCodeChain() {
 		'seatCode': null,
 		'status': 'WAITING'
 	};
+
+	// Genesis Block..
+	this.seatCodeInfo['status'] = 'GENESIS';
+	this.createSeatCode('0', '00', 0);
 }
 
 SeatCodeChain.prototype.createSeatCode = function (previousHash, currentHash, nounce) {
