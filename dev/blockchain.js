@@ -5,11 +5,12 @@ function SeatCodeChain() {
 	this.seatCodes = [];
 	this.seatCodeInfo = {
 		'empId': 0,
-		'seatCode': null
+		'seatCode': null,
+		'status': 'WAITING'
 	};
 }
 
-SeatCodeChain.prototype.createBlock = function (previousHash, currentHash, nounce) {
+SeatCodeChain.prototype.createSeatCode = function (previousHash, currentHash, nounce) {
 	const seatCodeObj = {
 		'index': this.seatCodes.length + 1,
 		'timestamp': new Date().getTime(),
@@ -36,3 +37,17 @@ SeatCodeChain.prototype.getOriginSeat = function() {
 SeatCodeChain.prototype.getLastSeat = function() {
 	return this.seatCodes[this.SeatCodeChain.length - 1];
 }
+
+SeatCodeChain.prototype.requestSeatCode = function(empId, seatCode) {
+	const seatCodeInfo = {
+		'empId': empId,
+		'seatCode': seatCode,
+		'status': 'WAITING'
+	};
+
+	this.seatCodeInfo = seatCodeInfo;
+
+	return this.getLastSeat()['index'] + 1;
+}
+
+module.exports = SeatCodeChain;
