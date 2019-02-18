@@ -9,6 +9,8 @@
   "author": "Syam Danda",
   "license": "Apache-2.0",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
     "sha256": "^0.2.0",
     "underscore": "^1.9.1"
   }

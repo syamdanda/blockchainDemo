@@ -21,7 +21,7 @@ app.get('/seatCodeChain', function(req, res) {
 
 app.post('/requestSeatCode', function(req, res) {
 	const seatCodeIndex = seatCodeChain.requestSeatCode(req.body.companyCode, req.body.empCode, req.body.seatCode);
-	res.json({'result' : 'seatCode request successfully raised and the seatCodeIndex is : $(seatCodeIndex}'});
+	res.json({'result' : 'seatCode request successfully raised and the seatCodeIndex is : ' + seatCodeIndex});
 });
 
 app.get('/mining', function(req, res) {
