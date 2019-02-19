@@ -4,7 +4,7 @@ const sha256 = require('sha256');
 
 function SeatCodeChain() {
 	this.seatCodes = [];
-	this.pendingSeatCodes = [];;
+	this.pendingSeatCodes = [];
 
 	// Genesis Block..
 	this.createSeatCode('0', '00', 0);
@@ -14,7 +14,7 @@ SeatCodeChain.prototype.createSeatCode = function (previousHash, currentHash, no
 	const seatCodeObj = {
 		'index': this.seatCodes.length + 1,
 		'timestamp': new Date().getTime(),
-		'seatCodeInfo': this.seatCodeInfo,
+		'seatCodes': this.pendingSeatCodes,
 		'nonce': nonce,
 		'previousHash': previousHash,
 		'hash': currentHash
