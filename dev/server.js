@@ -10,6 +10,11 @@ const seatCodeChain = new SeatCodeChain();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+var usedSeatCodes = [];
+var availableSeatCodes = [
+	'1', '2', '3', '4', '5', '6', '7', '8', '9', '10'
+];
+
 
 app.get('/', function(req, res) {
 	res.json('Hello World');
