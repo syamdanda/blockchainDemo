@@ -25,8 +25,53 @@ app.get('/seatCodeChain', function(req, res) {
 });
 
 app.post('/requestSeatCode', function(req, res) {
-	const seatCodeIndex = seatCodeChain.requestSeatCode(req.body.companyCode, req.body.empCode, req.body.seatCode);
-	res.json({'result' : 'seatCode request successfully raised and the seatCodeIndex is : $(seatCodeIndex}'});
+	if (availableSeatCodes && availableSeatCodes.length) {		
+		var errors = [];
+		if (!req.body.companyCode && req.body.companyCode == '') {
+			errors.push('companyCode value is required');
+		}
+		if (!req.body.empCode && req.body.empCode == '') {
+			errors.push('companyCode value is required');
+		}
+		if (errors && errors.length) {
+			res.json({
+				'status': 'ERROR',
+				'error': errors
+			});
+		} else {
+			availableSeatCodes = availableSeatCodes.sort(function (a, b) {
+									    if (parseInt(a) < parseInt(b)) 
+									    	return -1;
+									    return 1;
+									});
+			const seatCodeIndex = seatCodeChain.requestSeatCode(req.body.companyCode, req.body.empCode, availableSeatCodes[0]);
+			if (seatCodeIndex) {
+				availableSeatCodes.shift();
+				res.json({
+					'status': 'SUCCESS',
+					'msg' : 'Seatcode request raised successfully',
+					'result': [{
+						'seatCodeIndex': seatCodeIndex,
+						'availableSeatCodes': availableSeatCodes
+					}]
+				});
+			} else {
+				res.json({
+					'status': 'WARNING',
+					'msg' : 'Failed to raise a seatcode, please wait for some time',
+					'result': []
+				});
+			}			
+		}		
+	} else {
+		res.json({
+			'status': 'WARNING',
+			'msg' : 'no available seatcodes exist to raise the request, please wait for some time',
+			'result': []
+		});
+	}
+	
+	
 });
 
 app.get('/mining', function(req, res) {
