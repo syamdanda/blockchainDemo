@@ -46,7 +46,7 @@ app.post('/requestSeatCode', function(req, res) {
 									});
 			const seatCodeIndex = seatCodeChain.requestSeatCode(req.body.companyCode, req.body.empCode, availableSeatCodes[0]);
 			if (seatCodeIndex) {
-				availableSeatCodes.shift();
+				usedSeatCodes.push(availableSeatCodes.shift());
 				res.json({
 					'status': 'SUCCESS',
 					'msg' : 'Seatcode request raised successfully',
@@ -66,7 +66,7 @@ app.post('/requestSeatCode', function(req, res) {
 	} else {
 		res.json({
 			'status': 'WARNING',
-			'msg' : 'no available seatcodes exist to raise the request, please wait for some time',
+			'msg' : 'No available seatcodes exist to raise the request, please wait for some time',
 			'result': []
 		});
 	}
@@ -83,14 +83,36 @@ app.get('/mining', function(req, res) {
 		seatCodes:  seatCodeChain.pendingSeatCodes
 	};
 
-	const nonce = seatCodeChain.proofOfWork(previousHash, currentSeatCodeBlockData);
-	const currentBlockHash = seatCodeChain.hashData(currentSeatCodeBlockData, previousHash, nonce);
-	const newSeatCodeBlock = seatCodeChain.createSeatCode(previousHash, currentBlockHash, nonce);
-
-	res.json({
-		status: 'SUCCESS',
-		result: 'New seatCode block mined successfully at'
-	});
+	if (currentSeatCodeBlockData.seatCodes && currentSeatCodeBlockData.seatCodes.length) {
+		const nonce = seatCodeChain.proofOfWork(previousHash, currentSeatCodeBlockData);
+		const currentBlockHash = seatCodeChain.hashData(currentSeatCodeBlockData, previousHash, nonce);
+		const newSeatCodeBlock = seatCodeChain.createSeatCode(previousHash, currentBlockHash, nonce);
+		var lastSeatCode;
+		if (availableSeatCodes && availableSeatCodes.length) {
+			lastSeatCode = availableSeatCodes[availableSeatCodes.length - 1];
+		} else {
+			lastSeatCode = usedSeatCodes[usedSeatCodes.length - 1];
+		}
+		//add new seatCodes to the blockchain
+		var lastIndex = (lastSeatCode / 2) + 1;
+		for (let index = 1; index <= lastIndex; index ++) {
+			availableSeatCodes.push((parseInt(lastSeatCode) + index) + '');
+			if (index ==  lastIndex) {
+				res.json({
+					status: 'SUCCESS',
+					msg: 'New seatCode block mined successfully',
+					result: newSeatCodeBlock
+				});
+			}
+		}
+	} else {
+		res.json({
+			status: 'SUCCESS',
+			msg: 'No pending requests availale for mining',
+			result: []
+		});
+	}
+		
 });
 
 
