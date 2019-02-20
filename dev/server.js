@@ -24,6 +24,10 @@ app.get('/seatCodeChain', function(req, res) {
 	res.json(seatCodeChain);
 });
 
+app.get('/availableSeatCodes', function(req, res) {
+	res.json(availableSeatCodes);
+});
+
 app.post('/requestSeatCode', function(req, res) {
 	if (availableSeatCodes && availableSeatCodes.length) {		
 		var errors = [];

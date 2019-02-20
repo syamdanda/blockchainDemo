@@ -59,7 +59,7 @@ SeatCodeChain.prototype.proofOfWork = function(previousHash, currentSeatCodeBloc
 	
 	let nonce = 0;
 	let hash = this.hashData(currentSeatCodeBlockData, previousHash, nonce);
-	while (hash.substring(0, 2) != '00') {
+	while (hash.substring(0, 5) != '00000') {
 		//console.log('nonce :: ' + nonce);
 		nonce ++;
 		hash = this.hashData(currentSeatCodeBlockData, previousHash, nonce);
