@@ -119,7 +119,6 @@ app.get('/mining', function(req, res) {
 		
 });
 
-
 // set app defaults
 var app_host = process.env.HOST || 'localhost';
 var app_port = process.env.PORT || 9009;

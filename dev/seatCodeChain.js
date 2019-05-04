@@ -64,9 +64,7 @@ SeatCodeChain.prototype.proofOfWork = function(previousHash, currentSeatCodeBloc
 		nonce ++;
 		hash = this.hashData(currentSeatCodeBlockData, previousHash, nonce);
 	}
-
 	//console.log(hash);
-
 	return nonce;
 }
 
