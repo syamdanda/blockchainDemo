@@ -24,10 +24,12 @@ http://localhost:9009/availableSeatCodes
 ```
 
  <br/> 
- <b>Get  Available seatcodes </b> post API 
- ```
+ <b>Request a seatcode </b> post API 
+ 
+  ```
 http://localhost:9009/requestSeatCode
 ```
+ 
  <br/>
 you need to send below requestObj <br/>
 
