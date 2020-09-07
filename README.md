@@ -11,16 +11,27 @@ Demonstrating simple blockchain using JavaScript.
  <p> You can use the below APIs to see the app in action.</p>
  <br/>
  <b>Get  Blockchain </b> get API 
- ```http://localhost:9009/seatCodeChain ```
+ 
+```
+http://localhost:9009/seatCodeChain
+```
+
  <br/> 
  <b>Get  Available seatcodes </b> get API 
- ```http://localhost:9009/availableSeatCodes```
+ 
+ ```
+http://localhost:9009/availableSeatCodes
+```
+
  <br/> 
  <b>Get  Available seatcodes </b> post API 
- ```http://localhost:9009/requestSeatCode```
+  ```
+http://localhost:9009/requestSeatCode
+```
  <br/>
 you need to send below requestObj <br/>
-```
+
+ ```
 {	
 	"companyCode": "COMPANY1",
 	"empCode": "EMP1"
@@ -28,6 +39,8 @@ you need to send below requestObj <br/>
 ```
 <br/>
  <b>Mining seatcodes </b> get API 
- ```http://localhost:9009/mining```
+  ```
+http://localhost:9009/mining
+```
  <br/>
  This will confirm the seatcodes and also add few more seatcodes to be available for next requests.
