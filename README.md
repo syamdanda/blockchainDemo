@@ -25,7 +25,7 @@ http://localhost:9009/availableSeatCodes
 
  <br/> 
  <b>Get  Available seatcodes </b> post API 
-  ```
+ ```
 http://localhost:9009/requestSeatCode
 ```
  <br/>
