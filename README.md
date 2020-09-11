@@ -41,6 +41,7 @@ you need to send below requestObj <br/>
 ```
 <br/>
  <b>Mining seatcodes </b> get API 
+ 
   ```
 http://localhost:9009/mining
 ```
