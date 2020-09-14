@@ -5,7 +5,6 @@ const sha256 = require('sha256');
 function SeatCodeChain() {
 	this.seatCodes = [];
 	this.pendingSeatCodes = [];
-
 	// Genesis Block..
 	this.createSeatCode('0', '00', 0);
 }
