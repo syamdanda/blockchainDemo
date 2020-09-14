@@ -1,10 +1,7 @@
 const express = require('express');
 const app = express();
-
 const bodyParser = require('body-parser');
-
 const SeatCodeChain = require('./seatCodeChain');
-
 const seatCodeChain = new SeatCodeChain();
 
 app.use(bodyParser.json());
@@ -74,14 +71,11 @@ app.post('/requestSeatCode', function(req, res) {
 			'result': []
 		});
 	}
-	
-	
 });
 
 app.get('/mining', function(req, res) {
 	const lastSeatCodeBlock = seatCodeChain.getLastSeat();
 	const previousHash = lastSeatCodeBlock.previousHash;
-
 	const currentSeatCodeBlockData = {
 		index: lastSeatCodeBlock.index + 1,
 		seatCodes:  seatCodeChain.pendingSeatCodes
@@ -115,8 +109,7 @@ app.get('/mining', function(req, res) {
 			msg: 'No pending requests availale for mining',
 			result: []
 		});
-	}
-		
+	}		
 });
 
 // set app defaults
