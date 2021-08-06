@@ -1,5 +1,5 @@
 # blockchainDemo
-Demonstrating simple blockchain using JavaScript.
+Demonstrating simple usecase for blockchain using JavaScript.
 
  ## Scenario:
 <p>
